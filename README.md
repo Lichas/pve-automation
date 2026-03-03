@@ -1,26 +1,28 @@
 # pve-automation
 
-Proxmox VE (PVE) 自动化仓库，包含两部分：
+English | [简体中文](./README.zh-CN.md)
 
-1. 可直接运行的 Python API Client/CLI（`scripts/pve_client.py`）
-2. 面向 Codex 的 PVE 自动化技能说明（`SKILL.md`）
+A Proxmox VE (PVE) automation repository with two layers:
 
-这个仓库不只是“几个命令示例”，而是一个可扩展的 PVE 自动化基础层 + 一整套运维工作流参考。
+1. A runnable Python API client/CLI (`scripts/pve_client.py`)
+2. A Codex skill document for broader PVE automation workflows (`SKILL.md`)
 
-## 仓库结构
+This repository is not just a few demo commands. It provides an extensible PVE automation foundation plus practical operations guidance.
 
-- `scripts/pve_client.py`：可执行客户端与 CLI
-- `SKILL.md`：PVE 自动化能力说明、API 工作流与最佳实践
-- `evals/evals.json`：评估配置
+## Repository Structure
 
-## 已实现能力（代码层）
+- `scripts/pve_client.py`: executable API client and CLI
+- `SKILL.md`: PVE automation capabilities, API workflows, and best practices
+- `evals/evals.json`: evaluation metadata
 
-`PVEClient` 已封装以下 API 能力：
+## Implemented Capabilities (Code Layer)
 
-- 节点管理
+`PVEClient` currently implements the following API operations:
+
+- Node operations
   - `list_nodes`
   - `get_node_status`
-- VM（QEMU）管理
+- VM (QEMU) operations
   - `list_vms`
   - `get_vm_status`
   - `start_vm`
@@ -30,30 +32,30 @@ Proxmox VE (PVE) 自动化仓库，包含两部分：
   - `create_vm`
   - `delete_vm`
   - `clone_vm`
-- LXC 容器管理
+- LXC container operations
   - `list_containers`
   - `get_container_status`
   - `start_container`
   - `stop_container`
   - `create_container`
   - `delete_container`
-- 任务管理
+- Task operations
   - `get_task_status`
   - `wait_for_task`
-- 存储管理
+- Storage operations
   - `list_storage`
   - `get_storage_content`
-- 集群管理
+- Cluster operations
   - `get_cluster_resources`
   - `get_cluster_status`
-- 快照管理
+- Snapshot operations
   - `list_snapshots`
   - `create_snapshot`
   - `rollback_snapshot`
 
-### 已实现 CLI 命令
+### Implemented CLI Commands
 
-当前 CLI 直接支持：
+The current CLI supports:
 
 - `list-nodes`
 - `list-vms <node>`
@@ -63,66 +65,66 @@ Proxmox VE (PVE) 自动化仓库，包含两部分：
 - `create-vm <node> --vmid ... --name ... [--memory] [--cores] [--storage] [--disk] [--net] [--iso]`
 - `wait-task <node> <upid> [--timeout]`
 
-## SKILL 支持范围（文档/工作流层）
+## Skill Coverage (Workflow/Documentation Layer)
 
-`SKILL.md` 覆盖了完整的 PVE 自动化方法论与 API 操作路径，包括：
+`SKILL.md` covers a broader PVE automation scope, including:
 
-- 认证与连接
-  - API Token 认证
-  - Ticket/CSRF 认证
-  - 自定义 API 端口
-- 核心资源操作
-  - 节点、VM、LXC、集群、任务查询
-- 模板与镜像
-  - 模板列表、下载、aplinfo 模板源使用
-- Cloud-Init
-  - `ciuser`/`cipassword`/`ipconfig`/`cicustom` 等配置策略
-- 快照与备份
-  - VM 快照创建/回滚
-  - 备份创建、恢复、清理、备份查询
-- 存储与网络
-  - 存储内容管理、上传路径说明、网络参数规范
-- 安全与稳定性
-  - 资源校验（容量/配额）
-  - 批量操作 dry-run 思路
-  - 常见错误模式与处理建议
-- 高级运维能力（API 工作流）
-  - HA（高可用）
-  - 在线迁移（Live Migration）
-  - PCI/GPU 直通参数配置
-  - 定时任务（如备份计划）
-  - 权限管理（用户/角色/API Token）
-  - 通知系统（Webhook/通知目标/匹配器）
-  - 复制（Replication）
-  - 防火墙（节点级/VM级）
-  - 存储配置
-  - 证书与 ACME 插件管理
-  - 节点维护流程
+- Authentication and connectivity
+  - API token auth
+  - Ticket/CSRF auth
+  - custom API port handling
+- Core resource operations
+  - nodes, VMs, LXCs, cluster status, tasks
+- Templates and images
+  - template listing, download, aplinfo usage
+- Cloud-init
+  - configuration strategy for `ciuser`, `cipassword`, `ipconfig`, `cicustom`, etc.
+- Snapshots and backups
+  - VM snapshot create/rollback
+  - backup create/restore/cleanup/query
+- Storage and networking
+  - storage content workflows, upload paths, network parameter conventions
+- Safety and reliability
+  - resource checks (capacity/quota)
+  - dry-run strategy for batch operations
+  - common error patterns and handling
+- Advanced ops workflows (API-level)
+  - HA (High Availability)
+  - live migration
+  - PCI/GPU passthrough configuration
+  - scheduled jobs (for example backup plans)
+  - permissions (users/roles/API tokens)
+  - notifications (webhooks/targets/matchers)
+  - replication
+  - firewall (node-level and VM-level)
+  - storage configuration
+  - certificate and ACME plugin management
+  - node maintenance operations
 
-说明：上述“SKILL 支持范围”中的部分能力属于工作流与接口指南；如需 CLI 一键化，可在 `scripts/pve_client.py` 继续扩展对应子命令。
+Note: some items in "Skill Coverage" are documented workflows and API guidance, not CLI one-liners yet. You can extend `scripts/pve_client.py` with additional subcommands as needed.
 
-## 运行环境
+## Requirements
 
 - Python 3.9+
 - `requests`
 - `urllib3`
 
-安装依赖：
+Install dependencies:
 
 ```bash
 pip install requests urllib3
 ```
 
-## 认证参数
+## Authentication Parameters
 
-可用环境变量：
+Supported environment variables:
 
-- `PVE_HOST`：PVE 主机或 IP
-- `PVE_USER`：PVE 用户（默认 `root@pam`）
-- `PVE_TOKEN_ID`：API Token ID
-- `PVE_SECRET`：API Token Secret
+- `PVE_HOST`: PVE host or IP
+- `PVE_USER`: PVE user (default: `root@pam`)
+- `PVE_TOKEN_ID`: API token ID
+- `PVE_SECRET`: API token secret
 
-示例：
+Example:
 
 ```bash
 export PVE_HOST=192.168.1.10
@@ -131,22 +133,22 @@ export PVE_TOKEN_ID=automation
 export PVE_SECRET=your-token-secret
 ```
 
-也可使用全局参数覆盖：
+You can also override via CLI globals:
 
 ```bash
 python scripts/pve_client.py --host 192.168.1.10 --user root@pam --token-id automation --token-secret 'xxx' list-nodes
 ```
 
-## 快速示例
+## Quick Examples
 
 ```bash
-# 1) 查询节点
+# 1) List nodes
 python scripts/pve_client.py list-nodes
 
-# 2) 查询某节点 VM
+# 2) List VMs on a node
 python scripts/pve_client.py list-vms pve-node-1
 
-# 3) 创建 VM
+# 3) Create a VM
 python scripts/pve_client.py create-vm pve-node-1 \
   --vmid 120 \
   --name test-vm \
@@ -156,26 +158,26 @@ python scripts/pve_client.py create-vm pve-node-1 \
   --disk 32 \
   --net 'virtio,bridge=vmbr0'
 
-# 4) 启动 VM
+# 4) Start VM
 python scripts/pve_client.py start-vm pve-node-1 120
 ```
 
-## 作为库使用（Python）
+## Use as a Python Library
 
 ```python
 from scripts.pve_client import PVEClient
 
 client = PVEClient()
 
-# 集群资源
+# Cluster resources
 resources = client.get_cluster_resources()
 
-# VM 快照
+# VM snapshot
 client.create_snapshot('pve-node-1', 120, 'before-upgrade')
 ```
 
-## 生产使用建议
+## Production Notes
 
-- 当前实现默认 `verify=False`（关闭 SSL 校验），仅建议在可信内网使用
-- 生产环境建议启用有效证书并开启 SSL 校验
-- 为 API Token 设置最小权限原则，避免使用过大权限的 root token
+- Current implementation uses `verify=False` (SSL verification disabled), suitable only for trusted internal environments
+- For production, use valid certificates and enable SSL verification
+- Apply least-privilege principles to API tokens; avoid over-privileged root tokens
