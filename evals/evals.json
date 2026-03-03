@@ -1,0 +1,70 @@
+{
+  "skill_name": "pve-automation",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我写一个Python脚本，用于批量启动Proxmox VE上的虚拟机。我有3个节点pve1、pve2、pve3，需要在每个节点上启动ID为100-105的VM。使用API Token认证。",
+      "expected_output": "A Python script that connects to PVE API and batch starts VMs 100-105 on nodes pve1, pve2, pve3",
+      "files": [],
+      "expectations": [
+        "Script uses PVE API with token authentication",
+        "Script handles multiple nodes (pve1, pve2, pve3)",
+        "Script loops through VM IDs 100-105",
+        "Script includes error handling",
+        "Script uses POST /nodes/{node}/qemu/{vmid}/status/start endpoint"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "我需要创建一个PVE虚拟机模板管理工具，功能包括：1) 列出所有可用的LXC模板 2) 从Proxmox官方仓库下载指定模板 3) 基于模板创建新的LXC容器。请用Python实现。",
+      "expected_output": "A Python tool for managing LXC templates with list, download, and create container functions",
+      "files": [],
+      "expectations": [
+        "Tool lists available LXC templates using /nodes/{node}/aplinfo",
+        "Tool downloads templates using /nodes/{node}/storage/{storage}/download-url or aplinfo",
+        "Tool creates LXC containers using POST /nodes/{node}/lxc",
+        "Tool includes configurable parameters (hostname, memory, disk, network)",
+        "Tool handles task polling for async operations"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "帮我配置一个使用cloud-init的Ubuntu虚拟机。需要在PVE上：1) 创建VM 2) 配置cloud-init参数（用户、SSH密钥、IP地址）3) 启动VM。请提供完整的代码示例。",
+      "expected_output": "Complete code example for creating and configuring a cloud-init enabled VM on PVE",
+      "files": [],
+      "expectations": [
+        "Code creates VM with proper cloud-init setup (ide2 for config drive)",
+        "Code configures ciuser, cipassword or sshkeys",
+        "Code configures ipconfig0 with IP and gateway",
+        "Code uses Ubuntu cloud image or similar cloud-init ready image",
+        "Code starts VM after configuration"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "我需要监控PVE集群的状态，包括：1) 所有节点的CPU、内存、磁盘使用情况 2) 所有VM和容器的运行状态 3) 将结果输出为JSON格式。请写一个Python脚本。",
+      "expected_output": "A Python monitoring script that collects cluster resource usage and VM/container status",
+      "files": [],
+      "expectations": [
+        "Script uses /cluster/resources to get all resources",
+        "Script uses /nodes/{node}/status for detailed node stats",
+        "Script collects CPU, memory, and disk usage",
+        "Script gets VM/container status (running/stopped)",
+        "Script outputs structured JSON with all metrics"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "帮我写一个PVE虚拟机快照管理脚本，功能包括：创建快照、列出所有快照、回滚到指定快照、删除快照。需要支持交互式选择VM和快照。",
+      "expected_output": "An interactive Python script for VM snapshot management",
+      "files": [],
+      "expectations": [
+        "Script lists VMs for user selection",
+        "Script can create snapshots using POST /nodes/{node}/qemu/{vmid}/snapshot",
+        "Script lists snapshots using GET /nodes/{node}/qemu/{vmid}/snapshot",
+        "Script can rollback using POST /nodes/{node}/qemu/{vmid}/snapshot/{snapname}/rollback",
+        "Script can delete snapshots using DELETE endpoint"
+      ]
+    }
+  ]
+}
