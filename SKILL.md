@@ -1,9 +1,7 @@
----
-name: pve-automation
-description: Automate Proxmox VE (PVE) virtual machine and container management tasks including VM lifecycle operations (create, start, stop, delete), template management, cloud-init configuration, plugin installation, and cluster operations. Use this skill whenever the user mentions Proxmox, PVE, VM management, container (LXC) operations, qemu, or virtualization automation.
----
-
 # Proxmox VE Automation Skill
+
+> **Name:** pve-automation
+> **Description:** Automate Proxmox VE (PVE) virtual machine and container management tasks including VM lifecycle operations (create, start, stop, delete), template management, cloud-init configuration, plugin installation, and cluster operations. Use this skill whenever the user mentions Proxmox, PVE, VM management, container (LXC) operations, qemu, or virtualization automation.
 
 This skill provides comprehensive automation for Proxmox VE (Virtual Environment) management through its REST API.
 
